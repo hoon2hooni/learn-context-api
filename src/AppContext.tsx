@@ -29,7 +29,6 @@ const reducer = (state: typeof initialState, action: Action) => {
       };
     }
     case "FILTER_BY_NAME": {
-      console.log(initialState);
       return {
         ...state,
         users: initialState.users.filter(({ username }) =>

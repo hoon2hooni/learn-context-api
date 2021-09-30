@@ -1,6 +1,9 @@
-import React, { useState } from "react";
+import React, { ReactNode, useState } from "react";
 import { useGetContext } from "../AppContext";
-
+const SecondInput: React.FC<{ children: ReactNode }> = ({ children }) => {
+  return <div>{children}</div>;
+};
+const MemoizedDiv = React.memo(SecondInput);
 const Input: React.FC<{}> = () => {
   const { dispatch } = useGetContext();
   const [value, setValue] = useState("");
@@ -24,27 +27,27 @@ const Input: React.FC<{}> = () => {
         filter by name
       </button>
       <label htmlFor={AGE_LABEL}>나이를 입력해주세요</label>
-      <input
-        id={AGE_LABEL}
-        value={ageValue.toString()}
-        onChange={(e) => setAgeValue(e.target.value)}
-      ></input>
+      <MemoizedDiv>
+        <input
+          id={AGE_LABEL}
+          value={ageValue.toString()}
+          onChange={(e) => setAgeValue(e.target.value)}
+        ></input>
+      </MemoizedDiv>
       <button
         onClick={() => {
           dispatch({ type: "FILTER_BY_AGE", limit: parseInt(ageValue) });
           dispatch({ type: "COUNT" });
         }}
       >
-        {" "}
-        filter by age{" "}
+        filter by age
       </button>
       <button
         onClick={() => {
           dispatch({ type: "RESET" });
         }}
       >
-        {" "}
-        RESET{" "}
+        RESET
       </button>
     </div>
   );
